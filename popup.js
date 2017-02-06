@@ -1,38 +1,54 @@
 var globalObj = {
 	append : null,
+	$ref:null,
+	settingObj : null,
 	successColor : 'rgba(0,200,0,0.8)',
 	errorColor : 'rgba(200,0,0,0.8)',
 	infoColor : 'rgba(220,200,0,0.8)',
 	warningColor:'rgba(120,50,50,0.8)',
-	setWidth:function (width) {
-		this.$append.css('width',width+'px');
+	setWidth:function () {
+		this.$append.css('width',this.settingObj.width+'px');
 	},
-	setHeight:function (height) {
-		this.$append.css('height',height+'px');
+	setHeight:function () {
+		this.$append.css('height',this.settingObj.height+'px');
 	},
-	setPosition:function(settingObj){
-		if(settingObj.top) this.$append.css('top',settingObj.top+'px');
-		if(settingObj.bottom) this.$append.css('bottom',settingObj.bottom+'px');
-		if(settingObj.right) this.$append.css('right',settingObj.right+'px');
-		if(settingObj.left) this.$append.css('left',settingObj.left+'px');
+	setPosition:function(){
+		if(this.settingObj.top) this.$append.css('top',this.settingObj.top+'px');
+		if(this.settingObj.bottom) this.$append.css('bottom',this.settingObj.bottom+'px');
+		if(this.settingObj.right) this.$append.css('right',this.settingObj.right+'px');
+		if(this.settingObj.left) this.$append.css('left',this.settingObj.left+'px');
 	},
-	setType:function(type){
-		if(type == 'success') this.$append.css('background-color',this.successColor);
-		if(type == 'error') this.$append.css('background-color',this.errorColor);
-		if(type == 'info') this.$append.css('background-color',this.infoColor);
-		if(type == 'warning') this.$append.css('background-color',this.warningColor);
+	setType:function(){
+		if(this.settingObj.type == 'success') this.$append.css('background-color',this.successColor);
+		if(this.settingObj.type == 'error') this.$append.css('background-color',this.errorColor);
+		if(this.settingObj.type == 'info') this.$append.css('background-color',this.infoColor);
+		if(this.settingObj.type == 'warning') this.$append.css('background-color',this.warningColor);
 	},
-	addStyles:function(settingObj){
-		this.setWidth(settingObj.width);
-		this.setHeight(settingObj.height);
-		this.setPosition(settingObj);
-		this.setType(settingObj.type);
+	addStyles:function(){
+		this.setWidth();
+		this.setHeight();
+		this.setPosition();
+		this.setType();
 	},
 	showPopup : function(){
 		this.$append.appendTo('body');
+		this.$ref = $('#js-show-Popup');
+		this.animate();
 	},
-	createPopup:function(settingObj){
-		this.$append = $('<div id="js-show-Popup" class="default-css-popup">'+settingObj.msg+'</div>');
+	hidePopup : function(time){
+		var that = this;
+		setTimeout(function(){
+			if(that.settingObj.animate == 'fade' ) that.$ref.fadeOut('slow');
+			else that.$ref.slideUp('slow');
+		},this.settingObj.time);
+	},
+	animate:function(){
+		if(this.settingObj.animate == 'fade' ) this.$ref.fadeIn('slow');
+		else this.$ref.slideDown('slow');
+		this.hidePopup();
+	},
+	createPopup:function(){
+		this.$append = $('<div id="js-show-Popup" class="default-css-popup">'+this.settingObj.msg+'</div>');
 	},
 	attachDefaultValues:function(settingObj){
 		if(!settingObj.msg) settingObj.msg = 'Put Your Message Here';
@@ -60,13 +76,14 @@ var globalObj = {
 			settingObj.right= 20;
 		}
 		if(!settingObj.type) settingObj.type='success';
-		//if(!settingObj.width) settingObj.width = 200;
-		return settingObj;
+		if(!settingObj.animate) settingObj.type='slide';
+		if(!settingObj.time) settingObj.time = 5000;
+		this.settingObj=settingObj;
 	},
 	init:function (settingObj) {
-		var settingObj = this.attachDefaultValues(settingObj);
-		this.createPopup(settingObj);
-		this.addStyles(settingObj);
+		this.attachDefaultValues(settingObj);
+		this.createPopup();
+		this.addStyles();
 		this.showPopup();
 	}
 }
@@ -74,5 +91,7 @@ var $popup ={
 
 	show:function(settingObj){
 		globalObj.init(settingObj);
+		console.error("error my mind");
+		//globalObj.init(settingObj);
 	}
 }
