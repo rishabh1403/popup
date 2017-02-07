@@ -161,11 +161,85 @@ var globalObj = {
 		this.handleCloseButtonClick();
 	}
 }
+var validate = {
+	settingObj: null,
+	throwError: function (err) {
+		console.error(err);
+	},
+	validMsg: function () {
+		if (!this.settingObj.msg) {
+			this.throwError("Missing msg property from popup options");
+			return false;
+		}
+		return true;
+	},
+	validWidth: function () {
+		if (this.settingObj.width && isNaN(this.settingObj.width)) {
+			this.throwError("width of popup should be a number");
+			return false;
+		}
+		return true;
+	},
+	validHeight: function () {
+		if (this.settingObj.height && isNaN(this.settingObj.height)) {
+			this.throwError("height of popup should be a number");
+			return false;
+		}
+		return true;
+	},
+	validPosition: function () {
+		if (this.settingObj.position && (this.settingObj.position != 'top-right' && this.settingObj.position != 'top-left' && this.settingObj.position != 'bottom-left' && this.settingObj.position != 'bottom-right')) {
+			this.throwError("unknown position " + this.settingObj.position + " for popup toast");
+			return false;
+		}
+		return true;
+	},
+	validType: function () {
+		if (this.settingObj.type && (this.settingObj.type != 'success' && this.settingObj.type != 'info' && this.settingObj.type != 'warning' && this.settingObj.type != 'error')) {
+			this.throwError("unknown type " + this.settingObj.type + " for popup toast");
+			return false;
+		}
+		return true;
+	},
+	validAnimate: function () {
+		if (this.settingObj.animate && (this.settingObj.animate != 'fade' && this.settingObj.animate != 'slide')) {
+			this.throwError("unknown animation " + this.settingObj.animate + " for popup toast");
+			return false;
+		}
+		return true;
+	},
+	validTime: function () {
+		if (this.settingObj.time && isNaN(this.settingObj.time)) {
+			this.throwError("time of popup should be a number");
+			return false;
+		}
+		return true;
+	},
+	validSticky: function () {
+		if (this.settingObj.sticky && (this.settingObj.sticky != false && this.settingObj.sticky != true)) {
+			this.throwError("sticky property of popup should be boolean value");
+			return false;
+		}
+		return true;
+	},
+	init: function (settingObj) {
+		this.settingObj = settingObj;
+		return (this.validMsg() &&
+			this.validAnimate() &&
+			this.validHeight() &&
+			this.validPosition() &&
+			this.validSticky() &&
+			this.validTime() &&
+			this.validType() &&
+			this.validWidth());
+	}
+}
 var $popup = {
-
 	show: function (settingObj) {
 		$('#js-show-Popup').remove();
-		globalObj.init(settingObj);
-		console.error("error my mind");
+		if (validate.init(settingObj))
+			globalObj.init(settingObj);
+		else
+			return;
 	}
 }
