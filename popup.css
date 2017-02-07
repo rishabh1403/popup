@@ -1,7 +1,21 @@
-.default-css-popup{
-	z-index: 1000;
-	display: none;
+.default-css-popup {
+    z-index: 1000;
+    /*display: none;*/
     padding: 20px;
+    padding-top: 10px;
     border-radius: 20px;
     position: fixed;
+    background-color: green;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.close-popup-icon-button {
+    margin: 0;
+    padding: 0;
+    float: right;
+}
+
+.popup-data-container {
+    margin: 0px;
+    padding: 0px;
 }
