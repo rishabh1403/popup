@@ -1,4 +1,4 @@
-var allSvg = {
+var allPopUpJsSvg = {
 	$successSvg: ' <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"' +
 		'viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2;width:30px;height:30px;" xml:space="preserve">' +
 		'<circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6"/>' +
@@ -41,15 +41,15 @@ var allSvg = {
 
 
 }
-var globalObj = {
+var globalPopupJsObject = {
 	append: null,
 	$ref: null,
 	settingObj: null,
 
-	successColor: 'rgba(0,200,0,0.8)',
-	errorColor: 'rgba(200,0,0,0.8)',
-	infoColor: 'rgba(220,200,0,0.8)',
-	warningColor: 'rgba(120,50,50,0.8)',
+	successColor: 'rgba(0,200,0,1)',
+	errorColor: 'rgba(200,0,0,1)',
+	infoColor: 'rgba(220,200,0,1)',
+	warningColor: 'rgba(120,50,50,1)',
 	setWidth: function () {
 		this.$append.css('width', this.settingObj.width + 'px');
 	},
@@ -101,7 +101,7 @@ var globalObj = {
 	},
 	createPopup: function () {
 		this.$append = $('<div id="js-show-Popup" class="default-css-popup">' +
-			'<p class="close-popup-icon-button"><span id="popup-close-button">' + allSvg.$closeSvg + '</span></p>' +
+			'<p class="close-popup-icon-button"><span id="popup-close-button">' + allPopUpJsSvg.$closeSvg + '</span></p>' +
 			'<br/><p class="popup-data-container"><span class="all-other-popup-icons">' + this.settingObj.svg +
 			'</span><span class="all-other-popup-data">' + this.settingObj.msg + '</span></p>' +
 			'</div>');
@@ -141,13 +141,13 @@ var globalObj = {
 		}
 		if (!settingObj.type) settingObj.type = 'success';
 		if (settingObj.type == 'success')
-			settingObj.svg = allSvg.$successSvg;
+			settingObj.svg = allPopUpJsSvg.$successSvg;
 		if (settingObj.type == 'error')
-			settingObj.svg = allSvg.$errorSvg;
+			settingObj.svg = allPopUpJsSvg.$errorSvg;
 		if (settingObj.type == 'info')
-			settingObj.svg = allSvg.$infoSvg;
+			settingObj.svg = allPopUpJsSvg.$infoSvg;
 		if (settingObj.type == 'warning')
-			settingObj.svg = allSvg.$warningSvg;
+			settingObj.svg = allPopUpJsSvg.$warningSvg;
 		if (!settingObj.animate) settingObj.type = 'slide';
 		if (!settingObj.time) settingObj.time = 5000;
 		if (!settingObj.sticky) settingObj.sticky = false;
@@ -161,7 +161,7 @@ var globalObj = {
 		this.handleCloseButtonClick();
 	}
 }
-var validate = {
+var validatePopupJsOptions = {
 	settingObj: null,
 	throwError: function (err) {
 		console.error(err);
@@ -237,8 +237,8 @@ var validate = {
 var $popup = {
 	show: function (settingObj) {
 		$('#js-show-Popup').remove();
-		if (validate.init(settingObj))
-			globalObj.init(settingObj);
+		if (validatePopupJsOptions.init(settingObj))
+			globalPopupJsObject.init(settingObj);
 		else
 			return;
 	}

@@ -1,7 +1,8 @@
 .default-css-popup {
     z-index: 1000;
-    /*display: none;*/
+    display: none;
     padding: 20px;
+    color: white;
     padding-top: 10px;
     border-radius: 20px;
     position: fixed;
