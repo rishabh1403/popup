@@ -3,9 +3,7 @@ logs
 *.log
 npm-debug.log*
 #my testing files
-index.html
-index.js
-jq.js
+
 
 # Runtime data
 pids
