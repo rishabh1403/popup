@@ -4,9 +4,9 @@
 
 #### Installation Instructions
 
-..* include jquery in html
-..* include popup.css in the head of the html
-..* include popup.js after the jquery and before your scripts
+* include jquery in html
+* include popup.css in the head of the html
+* include popup.js after the jquery and before your scripts
 
 #### Usage
  
